@@ -1,0 +1,91 @@
+# -------------------------------------------------------------------
+# 1. Credentials secret (one-time setup per namespace)
+# -------------------------------------------------------------------
+apiVersion: v1
+kind: Secret
+metadata:
+  name: instana-credentials
+  namespace: argo-rollouts   # or the namespace where your AnalysisTemplate lives
+type: Opaque
+stringData:
+  endpoint: https://<unit-name>.instana.io
+  api-token: <your-instana-api-token>
+
+---
+# -------------------------------------------------------------------
+# 2. argo-rollouts-config ConfigMap — tell the controller where to
+#    find the plugin binary
+# -------------------------------------------------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argo-rollouts-config
+  namespace: argo-rollouts
+data:
+  metricProviderPlugins: |-
+    - name: "argoproj-labs/rollouts-plugin-metric-instana"
+      location: "https://github.com/argoproj-labs/rollouts-plugin-metric-instana/releases/download/v0.1.0/rollouts-plugin-metric-instana-linux-amd64"
+      sha256: "<sha256-of-the-binary>"
+
+---
+# -------------------------------------------------------------------
+# 3. AnalysisTemplate — canary error-rate check via Instana
+# -------------------------------------------------------------------
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: instana-error-rate
+spec:
+  args:
+  - name: service-name
+  metrics:
+  - name: error-rate
+    interval: 2m
+    # Succeed if error rate stays below 1 %
+    successCondition: default(result, 0) < 0.01
+    # Fail if error rate exceeds 5 %
+    failureCondition: default(result, 0) >= 0.05
+    failureLimit: 3
+    provider:
+      plugin:
+        argoproj-labs/rollouts-plugin-metric-instana:
+          # Instana backend URL and API token
+          # (can also be set via INSTANA_ENDPOINT / INSTANA_API_TOKEN env vars)
+          endpoint: https://<unit-name>.instana.io
+          apiToken: <your-instana-api-token>
+          # "application" or "infrastructure"
+          metricType: application
+          # Instana metric identifier
+          metricId: calls.erroneous.rate
+          # Optional Dynamic Focus query to scope the metric
+          query: "entity.application.name:{{args.service-name}}"
+          # Aggregation function (default: mean)
+          aggregation: mean
+          # Aggregation window in seconds (default: 60)
+          rollupInterval: 120
+
+---
+# -------------------------------------------------------------------
+# 4. Infrastructure metric example (CPU utilisation)
+# -------------------------------------------------------------------
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: instana-cpu-check
+spec:
+  metrics:
+  - name: cpu-usage
+    interval: 1m
+    successCondition: default(result, 0) < 70
+    failureCondition: default(result, 0) >= 90
+    failureLimit: 2
+    provider:
+      plugin:
+        argoproj-labs/rollouts-plugin-metric-instana:
+          endpoint: https://<unit-name>.instana.io
+          apiToken: <your-instana-api-token>
+          metricType: infrastructure
+          metricId: cpu.user
+          query: "entity.type:host AND entity.zone:production"
+          aggregation: mean
+          rollupInterval: 60
