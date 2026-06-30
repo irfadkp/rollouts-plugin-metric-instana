@@ -1,238 +1,215 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1080" width="900" height="1080"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1060" width="900" height="1060"
      font-family="-apple-system, 'Segoe UI', system-ui, sans-serif">
 
-  <!-- ── Canvas background ── -->
-  <rect width="900" height="1080" fill="#f8f9fb" rx="0"/>
+  <!-- canvas -->
+  <rect width="900" height="1060" fill="#f8f9fb"/>
 
-  <!-- ═══════════════════════════════════════════════════
-       TITLE BLOCK
-  ════════════════════════════════════════════════════ -->
-  <rect x="0" y="0" width="900" height="72" fill="#1e1e2e"/>
-  <text x="450" y="32" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">
-    rollouts-plugin-metric-instana
-  </text>
-  <text x="450" y="56" text-anchor="middle" font-size="14" fill="#a0a8c0">
-    Runtime flow · IBM Instana × Argo Rollouts canary analysis
-  </text>
-
-  <!-- ═══════════════════════════════════════════════════
-       DEFS — arrow markers
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══ DEFS ═══ -->
   <defs>
-    <marker id="m-dark"  markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0,10 3.5,0 7" fill="#374151"/>
-    </marker>
-    <marker id="m-blue"  markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0,10 3.5,0 7" fill="#3b82f6"/>
-    </marker>
-    <marker id="m-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0,10 3.5,0 7" fill="#16a34a"/>
-    </marker>
-    <marker id="m-red"   markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0,10 3.5,0 7" fill="#dc2626"/>
-    </marker>
-    <marker id="m-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0,10 3.5,0 7" fill="#ea580c"/>
-    </marker>
-    <!-- drop shadow filter -->
-    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
+    <marker id="m-dark"  markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#374151"/></marker>
+    <marker id="m-blue"  markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#3b82f6"/></marker>
+    <marker id="m-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#16a34a"/></marker>
+    <marker id="m-red"   markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#dc2626"/></marker>
+    <filter id="sh" x="-4%" y="-4%" width="108%" height="108%">
       <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
     </filter>
   </defs>
 
-  <!-- ═══════════════════════════════════════════════════
-       PHASE 1 — STARTUP  (one-time)
-  ════════════════════════════════════════════════════ -->
-  <text x="34" y="104" font-size="11" font-weight="700" fill="#6b7280" letter-spacing="1.5">STARTUP  ·  ONE TIME</text>
-  <line x1="34" y1="108" x2="866" y2="108" stroke="#e5e7eb" stroke-width="1"/>
+  <!-- ═══ TITLE ═══ -->
+  <rect x="0" y="0" width="900" height="72" fill="#1e1e2e"/>
+  <text x="450" y="30" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">rollouts-plugin-metric-instana</text>
+  <text x="450" y="54" text-anchor="middle" font-size="14" fill="#a0a8c0">Runtime flow · IBM Instana × Argo Rollouts canary analysis</text>
 
-  <!-- ConfigMap -->
-  <rect x="34" y="118" width="168" height="72" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
-  <text x="118" y="141" text-anchor="middle" font-size="11" fill="#1d4ed8" font-weight="700">ConfigMap</text>
-  <text x="118" y="157" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="600">argo-rollouts-config</text>
-  <text x="118" y="174" text-anchor="middle" font-size="11" fill="#3b82f6">plugin location + sha256</text>
+  <!-- ═══ STARTUP BAND ═══ -->
+  <text x="34" y="96" font-size="11" font-weight="700" fill="#6b7280" letter-spacing="1.5">STARTUP  ·  ONE TIME</text>
+  <line x1="34" y1="100" x2="866" y2="100" stroke="#e5e7eb" stroke-width="1"/>
 
-  <!-- arrow 1 -->
-  <line x1="202" y1="154" x2="248" y2="154" stroke="#3b82f6" stroke-width="2" marker-end="url(#m-blue)"/>
-  <text x="225" y="147" text-anchor="middle" font-size="10" fill="#3b82f6">reads</text>
+  <!-- box: ConfigMap -->
+  <rect x="34"  y="110" width="155" height="70" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" filter="url(#sh)"/>
+  <text x="111" y="133" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8">ConfigMap</text>
+  <text x="111" y="151" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">argo-rollouts-config</text>
+  <text x="111" y="168" text-anchor="middle" font-size="11" fill="#3b82f6">plugin location + sha256</text>
 
-  <!-- Controller -->
-  <rect x="250" y="118" width="168" height="72" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" filter="url(#shadow)"/>
-  <text x="334" y="141" text-anchor="middle" font-size="11" fill="#5b21b6" font-weight="700">Argo Rollouts</text>
-  <text x="334" y="158" text-anchor="middle" font-size="13" fill="#4c1d95" font-weight="600">Controller</text>
-  <text x="334" y="176" text-anchor="middle" font-size="11" fill="#7c3aed">watches Rollouts &amp; runs analysis</text>
+  <!-- arrow ConfigMap → Controller -->
+  <line x1="189" y1="145" x2="222" y2="145" stroke="#3b82f6" stroke-width="2" marker-end="url(#m-blue)"/>
+  <text x="205" y="139" text-anchor="middle" font-size="10" fill="#3b82f6">reads</text>
 
-  <!-- arrow 2 -->
-  <line x1="418" y1="154" x2="464" y2="154" stroke="#7c3aed" stroke-width="2" marker-end="url(#m-dark)"/>
-  <text x="441" y="147" text-anchor="middle" font-size="10" fill="#7c3aed">spawns</text>
+  <!-- box: Controller -->
+  <rect x="224" y="110" width="162" height="70" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2" filter="url(#sh)"/>
+  <text x="305" y="133" text-anchor="middle" font-size="11" font-weight="700" fill="#5b21b6">Argo Rollouts</text>
+  <text x="305" y="150" text-anchor="middle" font-size="13" font-weight="600" fill="#4c1d95">Controller</text>
+  <text x="305" y="168" text-anchor="middle" font-size="11" fill="#7c3aed">watches &amp; runs analysis</text>
 
-  <!-- Plugin binary -->
-  <rect x="466" y="118" width="168" height="72" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
-  <text x="550" y="141" text-anchor="middle" font-size="11" fill="#14532d" font-weight="700">Plugin Binary</text>
-  <text x="550" y="158" text-anchor="middle" font-size="13" fill="#15803d" font-weight="600">RPC Server</text>
-  <text x="550" y="176" text-anchor="middle" font-size="11" fill="#16a34a">long-lived · unix socket</text>
+  <!-- arrow Controller → Plugin -->
+  <line x1="386" y1="145" x2="419" y2="145" stroke="#7c3aed" stroke-width="2" marker-end="url(#m-dark)"/>
+  <text x="402" y="139" text-anchor="middle" font-size="10" fill="#7c3aed">spawns</text>
 
-  <!-- arrow 3 -->
-  <line x1="634" y1="154" x2="680" y2="154" stroke="#16a34a" stroke-width="2" marker-end="url(#m-green)"/>
-  <text x="657" y="147" text-anchor="middle" font-size="10" fill="#16a34a">ready</text>
+  <!-- box: Plugin Binary -->
+  <rect x="421" y="110" width="162" height="70" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#sh)"/>
+  <text x="502" y="133" text-anchor="middle" font-size="11" font-weight="700" fill="#14532d">Plugin Binary</text>
+  <text x="502" y="150" text-anchor="middle" font-size="13" font-weight="600" fill="#15803d">RPC Server</text>
+  <text x="502" y="168" text-anchor="middle" font-size="11" fill="#16a34a">long-lived · unix socket</text>
 
-  <!-- Rollout -->
-  <rect x="682" y="118" width="184" height="72" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
-  <text x="774" y="141" text-anchor="middle" font-size="11" fill="#92400e" font-weight="700">Rollout Resource</text>
-  <text x="774" y="158" text-anchor="middle" font-size="13" fill="#78350f" font-weight="600">Canary in progress</text>
-  <text x="774" y="176" text-anchor="middle" font-size="11" fill="#b45309">references AnalysisTemplate</text>
+  <!-- arrow Plugin → Rollout -->
+  <line x1="583" y1="145" x2="616" y2="145" stroke="#16a34a" stroke-width="2" marker-end="url(#m-green)"/>
+  <text x="599" y="139" text-anchor="middle" font-size="10" fill="#16a34a">ready</text>
 
-  <!-- ═══════════════════════════════════════════════════
-       DIVIDER
-  ════════════════════════════════════════════════════ -->
-  <text x="34" y="220" font-size="11" font-weight="700" fill="#6b7280" letter-spacing="1.5">PER-INTERVAL ANALYSIS CYCLE</text>
-  <line x1="34" y1="224" x2="866" y2="224" stroke="#e5e7eb" stroke-width="1"/>
+  <!-- box: Rollout -->
+  <rect x="618" y="110" width="248" height="70" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#sh)"/>
+  <text x="742" y="133" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">Rollout Resource</text>
+  <text x="742" y="150" text-anchor="middle" font-size="13" font-weight="600" fill="#78350f">Canary in progress</text>
+  <text x="742" y="168" text-anchor="middle" font-size="11" fill="#b45309">references AnalysisTemplate</text>
 
-  <!-- ═══════════════════════════════════════════════════
-       STEP CARDS  — vertical spine layout
-  ════════════════════════════════════════════════════ -->
+  <!-- ═══ CYCLE SECTION LABEL ═══ -->
+  <text x="34" y="208" font-size="11" font-weight="700" fill="#6b7280" letter-spacing="1.5">PER-INTERVAL ANALYSIS CYCLE</text>
+  <line x1="34" y1="212" x2="866" y2="212" stroke="#e5e7eb" stroke-width="1"/>
 
-  <!-- central spine line -->
-  <line x1="450" y1="232" x2="450" y2="830" stroke="#e5e7eb" stroke-width="2" stroke-dasharray="6,4"/>
+  <!-- central spine -->
+  <line x1="450" y1="220" x2="450" y2="770" stroke="#d1d5db" stroke-width="2" stroke-dasharray="6,4"/>
 
-  <!-- ── STEP 1 ── left card -->
-  <rect x="34" y="240" width="350" height="90" rx="12" fill="#ffffff" stroke="#c4b5fd" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="34" y="240" width="8" height="90" rx="4" fill="#7c3aed"/>
-  <text x="55" y="263" font-size="11" font-weight="700" fill="#7c3aed">STEP 1</text>
-  <text x="55" y="284" font-size="15" font-weight="700" fill="#1e1e2e">Controller calls Run()</text>
-  <text x="55" y="304" font-size="12" fill="#57606a">RPC call over unix socket on every</text>
-  <text x="55" y="320" font-size="12" fill="#57606a">analysis interval tick</text>
+  <!-- ─── STEP 1  (left) ─── -->
+  <rect x="34"  y="226" width="368" height="88" rx="12" fill="#ffffff" stroke="#c4b5fd" stroke-width="2" filter="url(#sh)"/>
+  <!-- left accent bar -->
+  <rect x="34"  y="226" width="8"   height="88" rx="4"  fill="#7c3aed"/>
+  <text x="56"  y="248" font-size="11" font-weight="700" fill="#7c3aed">STEP 1</text>
+  <text x="56"  y="269" font-size="15" font-weight="700" fill="#1e1e2e">Controller calls Run()</text>
+  <text x="56"  y="289" font-size="12" fill="#57606a">RPC call over unix socket on every</text>
+  <text x="56"  y="306" font-size="12" fill="#57606a">analysis interval tick</text>
+  <!-- connector right → spine -->
+  <line x1="402" y1="270" x2="442" y2="270" stroke="#7c3aed" stroke-width="2" marker-end="url(#m-dark)"/>
 
-  <!-- step 1 connector to spine -->
-  <line x1="384" y1="285" x2="442" y2="285" stroke="#7c3aed" stroke-width="2" marker-end="url(#m-dark)"/>
+  <!-- ─── STEP 2  (right) ─── -->
+  <rect x="498" y="226" width="368" height="88" rx="12" fill="#ffffff" stroke="#6ee7b7" stroke-width="2" filter="url(#sh)"/>
+  <!-- LEFT accent bar (fix: was on far right at x=858) -->
+  <rect x="498" y="226" width="8"   height="88" rx="4"  fill="#059669"/>
+  <text x="520" y="248" font-size="11" font-weight="700" fill="#059669">STEP 2</text>
+  <text x="520" y="269" font-size="15" font-weight="700" fill="#1e1e2e">Parse Config + Credentials</text>
+  <text x="520" y="289" font-size="12" fill="#57606a">Unmarshal JSON from</text>
+  <text x="520" y="306" font-size="12" fill="#57606a">metric.Provider.Plugin key</text>
+  <!-- spine → Step 2 connector -->
+  <line x1="458" y1="270" x2="490" y2="270" stroke="#059669" stroke-width="2" marker-end="url(#m-green)"/>
 
-  <!-- ── STEP 2 ── right card -->
-  <rect x="516" y="240" width="350" height="90" rx="12" fill="#ffffff" stroke="#6ee7b7" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="858" y="240" width="8" height="90" rx="4" fill="#059669"/>
-  <text x="530" y="263" font-size="11" font-weight="700" fill="#059669">STEP 2</text>
-  <text x="530" y="284" font-size="15" font-weight="700" fill="#1e1e2e">Parse Config + Credentials</text>
-  <text x="530" y="304" font-size="12" fill="#57606a">Unmarshal JSON from</text>
-  <text x="530" y="320" font-size="12" fill="#57606a">metric.Provider.Plugin key</text>
+  <!-- vertical spine segment step1→step3 -->
+  <line x1="450" y1="270" x2="450" y2="352" stroke="#374151" stroke-width="2"/>
 
-  <!-- step 2 connector from spine -->
-  <line x1="458" y1="330" x2="514" y2="330" stroke="#059669" stroke-width="2" marker-end="url(#m-green)"/>
-  <line x1="450" y1="285" x2="450" y2="332" stroke="#e5e7eb" stroke-width="2" stroke-dasharray="0"/>
+  <!-- ─── STEP 3  (left) ─── -->
+  <rect x="34"  y="350" width="368" height="106" rx="12" fill="#ffffff" stroke="#fbbf24" stroke-width="2" filter="url(#sh)"/>
+  <rect x="34"  y="350" width="8"   height="106" rx="4"  fill="#d97706"/>
+  <text x="56"  y="372" font-size="11" font-weight="700" fill="#d97706">STEP 3 · CREDENTIALS</text>
+  <text x="56"  y="393" font-size="15" font-weight="700" fill="#1e1e2e">Resolve API Token</text>
+  <circle cx="64" cy="412" r="9" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="64"  y="416" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">1</text>
+  <text x="82"  y="416" font-size="12" fill="#57606a">Inline config  (endpoint + apiToken)</text>
+  <circle cx="64" cy="437" r="9" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="64"  y="441" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">2</text>
+  <text x="82"  y="441" font-size="12" fill="#57606a">INSTANA_ENDPOINT / INSTANA_API_TOKEN</text>
+  <!-- Step 3 → spine -->
+  <line x1="402" y1="403" x2="442" y2="403" stroke="#d97706" stroke-width="2" marker-end="url(#m-dark)"/>
 
-  <!-- ── STEP 3 ── left card — credential box -->
-  <rect x="34" y="358" width="350" height="106" rx="12" fill="#ffffff" stroke="#fbbf24" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="34" y="358" width="8" height="106" rx="4" fill="#d97706"/>
-  <text x="55" y="381" font-size="11" font-weight="700" fill="#d97706">STEP 3 · CREDENTIALS</text>
-  <text x="55" y="401" font-size="15" font-weight="700" fill="#1e1e2e">Resolve API Token</text>
-  <!-- numbered list -->
-  <circle cx="63" cy="420" r="9" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="63" y="424" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">1</text>
-  <text x="80" y="424" font-size="12" fill="#57606a">Inline config  (endpoint + apiToken)</text>
-  <circle cx="63" cy="447" r="9" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="63" y="451" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">2</text>
-  <text x="80" y="451" font-size="12" fill="#57606a">INSTANA_ENDPOINT / INSTANA_API_TOKEN</text>
+  <!-- ─── STEP 4  (right) ─── -->
+  <rect x="498" y="350" width="368" height="106" rx="12" fill="#ffffff" stroke="#86efac" stroke-width="2" filter="url(#sh)"/>
+  <!-- LEFT accent bar (fix: was on far right at x=858) -->
+  <rect x="498" y="350" width="8"   height="106" rx="4"  fill="#16a34a"/>
+  <text x="520" y="372" font-size="11" font-weight="700" fill="#16a34a">STEP 4 · BRANCH</text>
+  <text x="520" y="393" font-size="15" font-weight="700" fill="#1e1e2e">Choose Metric Endpoint</text>
+  <rect x="520" y="404" width="138" height="30" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="589" y="424" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">application</text>
+  <rect x="672" y="404" width="178" height="30" rx="6" fill="#cffafe" stroke="#0891b2" stroke-width="1.5"/>
+  <text x="761" y="424" text-anchor="middle" font-size="12" font-weight="600" fill="#164e63">infrastructure</text>
+  <text x="520" y="451" font-size="11" fill="#57606a">metricType field selects which</text>
+  <text x="520" y="465" font-size="11" fill="#57606a">Instana REST endpoint is called</text>
+  <!-- spine → Step 4 (fix: was missing clear arrow from spine) -->
+  <line x1="458" y1="403" x2="490" y2="403" stroke="#16a34a" stroke-width="2" marker-end="url(#m-green)"/>
 
-  <line x1="384" y1="411" x2="442" y2="411" stroke="#d97706" stroke-width="2" marker-end="url(#m-dark)"/>
+  <!-- vertical spine segment step3→step5 -->
+  <line x1="450" y1="403" x2="450" y2="470" stroke="#374151" stroke-width="2"/>
 
-  <!-- ── STEP 4 ── right card — metricType branch -->
-  <rect x="516" y="358" width="350" height="106" rx="12" fill="#ffffff" stroke="#86efac" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="858" y="358" width="8" height="106" rx="4" fill="#16a34a"/>
-  <text x="530" y="381" font-size="11" font-weight="700" fill="#16a34a">STEP 4 · BRANCH</text>
-  <text x="530" y="401" font-size="15" font-weight="700" fill="#1e1e2e">Choose Metric Endpoint</text>
-  <!-- branch A -->
-  <rect x="530" y="412" width="140" height="32" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="600" y="433" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">application</text>
-  <!-- branch B -->
-  <rect x="700" y="412" width="150" height="32" rx="6" fill="#cffafe" stroke="#0891b2" stroke-width="1.5"/>
-  <text x="775" y="433" text-anchor="middle" font-size="12" font-weight="600" fill="#164e63">infrastructure</text>
-  <text x="530" y="458" font-size="11" fill="#57606a">metricType field in plugin config determines</text>
-  <text x="530" y="472" font-size="11" fill="#57606a">which Instana REST endpoint is called</text>
+  <!-- ─── STEP 5  full-width ─── -->
+  <rect x="34"  y="472" width="832" height="114" rx="12" fill="#ffffff" stroke="#fca5a5" stroke-width="2" filter="url(#sh)"/>
+  <!-- top accent bar -->
+  <rect x="34"  y="472" width="832" height="8"   rx="4"  fill="#dc2626"/>
+  <text x="450" y="502" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">STEP 5 · IBM INSTANA REST API</text>
+  <text x="450" y="522" text-anchor="middle" font-size="16" font-weight="700" fill="#1e1e2e">POST metrics query to Instana</text>
+  <!-- endpoint pills -->
+  <rect x="60"  y="534" width="348" height="32" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="234" y="555" text-anchor="middle" font-size="11" font-weight="600" fill="#b91c1c">/api/application-monitoring/metrics/applications</text>
+  <rect x="492" y="534" width="348" height="32" rx="8" fill="#ecfeff" stroke="#67e8f9"  stroke-width="1.5"/>
+  <text x="666" y="555" text-anchor="middle" font-size="11" font-weight="600" fill="#164e63">/api/infrastructure-monitoring/metrics</text>
+  <!-- response note -->
+  <text x="450" y="578" text-anchor="middle" font-size="11" fill="#9ca3af">← responds with JSON array of  [timestamp, value]  data points</text>
+  <!-- connector spine → Step 5 -->
+  <line x1="450" y1="458" x2="450" y2="470" stroke="#374151" stroke-width="2" marker-end="url(#m-dark)"/>
 
-  <line x1="458" y1="456" x2="514" y2="456" stroke="#16a34a" stroke-width="2" marker-end="url(#m-green)"/>
+  <!-- ─── STEP 6  (left) ─── -->
+  <rect x="34"  y="614" width="368" height="88" rx="12" fill="#ffffff" stroke="#fde68a" stroke-width="2" filter="url(#sh)"/>
+  <rect x="34"  y="614" width="8"   height="88" rx="4"  fill="#f59e0b"/>
+  <text x="56"  y="636" font-size="11" font-weight="700" fill="#f59e0b">STEP 6</text>
+  <text x="56"  y="657" font-size="15" font-weight="700" fill="#1e1e2e">extractValue()</text>
+  <text x="56"  y="677" font-size="12" fill="#57606a">Pick the last  [timestamp, value]</text>
+  <text x="56"  y="694" font-size="12" fill="#57606a">data point from the response</text>
+  <!-- Step 6 → spine -->
+  <line x1="402" y1="658" x2="442" y2="658" stroke="#f59e0b" stroke-width="2" marker-end="url(#m-dark)"/>
 
-  <!-- ── STEP 5 ── INSTANA API — full width card with IBM red accent -->
-  <rect x="34" y="492" width="832" height="110" rx="12" fill="#ffffff" stroke="#fca5a5" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="34" y="492" width="832" height="8" rx="4" fill="#dc2626"/>
-  <text x="450" y="522" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">STEP 5 · IBM INSTANA REST API</text>
-  <text x="450" y="542" text-anchor="middle" font-size="16" font-weight="700" fill="#1e1e2e">POST metrics query to Instana</text>
-  <!-- two endpoint pills -->
-  <rect x="80" y="556" width="330" height="34" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
-  <text x="245" y="578" text-anchor="middle" font-size="11" font-weight="600" fill="#b91c1c">/api/application-monitoring/metrics/applications</text>
-  <rect x="490" y="556" width="330" height="34" rx="8" fill="#ecfeff" stroke="#67e8f9" stroke-width="1.5"/>
-  <text x="655" y="578" text-anchor="middle" font-size="11" font-weight="600" fill="#164e63">/api/infrastructure-monitoring/metrics</text>
-  <!-- response label -->
-  <text x="450" y="596" text-anchor="middle" font-size="11" fill="#9ca3af">← responds with JSON array of  [timestamp, value]  data points</text>
+  <!-- ─── STEP 7  (right) ─── -->
+  <rect x="498" y="614" width="368" height="88" rx="12" fill="#ffffff" stroke="#fde68a" stroke-width="2" filter="url(#sh)"/>
+  <!-- LEFT accent bar -->
+  <rect x="498" y="614" width="8"   height="88" rx="4"  fill="#f59e0b"/>
+  <text x="520" y="636" font-size="11" font-weight="700" fill="#f59e0b">STEP 7</text>
+  <text x="520" y="657" font-size="15" font-weight="700" fill="#1e1e2e">Evaluate Condition</text>
+  <text x="520" y="677" font-size="12" fill="#57606a">evaluate.EvaluateResult() checks</text>
+  <text x="520" y="694" font-size="12" fill="#57606a">successCondition / failureCondition</text>
+  <!-- spine → Step 7 (fix: was missing) -->
+  <line x1="458" y1="658" x2="490" y2="658" stroke="#f59e0b" stroke-width="2" marker-end="url(#m-dark)"/>
 
-  <!-- connector arrows into step 5 -->
-  <line x1="450" y1="464" x2="450" y2="490" stroke="#374151" stroke-width="2" marker-end="url(#m-dark)"/>
+  <!-- vertical spine: step5 → step6/7 -->
+  <line x1="450" y1="586" x2="450" y2="612" stroke="#374151" stroke-width="2" marker-end="url(#m-dark)"/>
 
-  <!-- ── STEP 6 ── left card -->
-  <rect x="34" y="630" width="350" height="90" rx="12" fill="#ffffff" stroke="#fde68a" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="34" y="630" width="8" height="90" rx="4" fill="#f59e0b"/>
-  <text x="55" y="653" font-size="11" font-weight="700" fill="#f59e0b">STEP 6</text>
-  <text x="55" y="674" font-size="15" font-weight="700" fill="#1e1e2e">extractValue()</text>
-  <text x="55" y="694" font-size="12" fill="#57606a">Pick the last  [timestamp, value]</text>
-  <text x="55" y="710" font-size="12" fill="#57606a">data point from the response</text>
+  <!-- ═══ DECISION ═══ -->
+  <text x="34"  y="732" font-size="11" font-weight="700" fill="#6b7280" letter-spacing="1.5">DECISION</text>
+  <line x1="34"  y1="736" x2="866" y2="736" stroke="#e5e7eb" stroke-width="1"/>
 
-  <line x1="384" y1="675" x2="442" y2="675" stroke="#f59e0b" stroke-width="2" marker-end="url(#m-dark)"/>
+  <!-- GO -->
+  <rect x="34"  y="748" width="388" height="84" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.5" filter="url(#sh)"/>
+  <text x="228" y="784" text-anchor="middle" font-size="23" font-weight="700" fill="#15803d">✓  GO</text>
+  <text x="228" y="806" text-anchor="middle" font-size="13" fill="#166534">Canary promoted → 100% traffic</text>
+  <text x="228" y="824" text-anchor="middle" font-size="11" fill="#22c55e">successCondition passed</text>
 
-  <!-- ── STEP 7 ── right card -->
-  <rect x="516" y="630" width="350" height="90" rx="12" fill="#ffffff" stroke="#fde68a" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="858" y="630" width="8" height="90" rx="4" fill="#f59e0b"/>
-  <text x="530" y="653" font-size="11" font-weight="700" fill="#f59e0b">STEP 7</text>
-  <text x="530" y="674" font-size="15" font-weight="700" fill="#1e1e2e">Evaluate Condition</text>
-  <text x="530" y="694" font-size="12" fill="#57606a">evaluate.EvaluateResult() checks</text>
-  <text x="530" y="710" font-size="12" fill="#57606a">successCondition / failureCondition</text>
+  <!-- ROLLBACK -->
+  <rect x="478" y="748" width="388" height="84" rx="12" fill="#fff1f2" stroke="#dc2626" stroke-width="2.5" filter="url(#sh)"/>
+  <text x="672" y="784" text-anchor="middle" font-size="23" font-weight="700" fill="#dc2626">✕  ROLLBACK</text>
+  <text x="672" y="806" text-anchor="middle" font-size="13" fill="#991b1b">Stable version restored</text>
+  <text x="672" y="824" text-anchor="middle" font-size="11" fill="#f87171">failureLimit exceeded</text>
 
-  <line x1="458" y1="675" x2="514" y2="675" stroke="#f59e0b" stroke-width="2" marker-end="url(#m-dark)"/>
+  <!-- decision arrows from spine (fix: cleaner T-split from step7 output) -->
+  <line x1="450" y1="702" x2="450" y2="730" stroke="#374151" stroke-width="2"/>
+  <line x1="450" y1="730" x2="228" y2="730" stroke="#16a34a" stroke-width="2"/>
+  <line x1="228" y1="730" x2="228" y2="746" stroke="#16a34a" stroke-width="2" marker-end="url(#m-green)"/>
+  <line x1="450" y1="730" x2="672" y2="730" stroke="#dc2626" stroke-width="2"/>
+  <line x1="672" y1="730" x2="672" y2="746" stroke="#dc2626" stroke-width="2" marker-end="url(#m-red)"/>
 
-  <!-- connector from step 5 down -->
-  <line x1="450" y1="602" x2="450" y2="628" stroke="#374151" stroke-width="2" marker-end="url(#m-dark)"/>
+  <!-- ═══ FOOTER ═══ -->
+  <rect x="0" y="856" width="900" height="204" fill="#1e1e2e"/>
 
-  <!-- ── DECISION ROW ── -->
-  <text x="34" y="756" font-size="11" font-weight="700" fill="#6b7280" letter-spacing="1.5">DECISION</text>
-  <line x1="34" y1="760" x2="866" y2="760" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="450" y="888" text-anchor="middle" font-size="13" font-weight="700" fill="#e2e8f0">Other outcome phases</text>
 
-  <!-- GO card -->
-  <rect x="34" y="772" width="380" height="84" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.5" filter="url(#shadow)"/>
-  <text x="224" y="806" text-anchor="middle" font-size="22" font-weight="700" fill="#15803d">✓  GO</text>
-  <text x="224" y="830" text-anchor="middle" font-size="13" fill="#166534">Canary promoted → 100% traffic</text>
-  <text x="224" y="847" text-anchor="middle" font-size="11" fill="#4ade80">successCondition passed</text>
+  <!-- Error pill (fix: was "⚠" — use text only for SVG compat) -->
+  <rect x="80"  y="900" width="240" height="46" rx="8" fill="#27272a" stroke="#f97316" stroke-width="1.5"/>
+  <text x="200" y="918" text-anchor="middle" font-size="13" font-weight="700" fill="#f97316">Error</text>
+  <text x="200" y="938" text-anchor="middle" font-size="11" fill="#94a3b8">API failure — retried next interval</text>
 
-  <!-- ROLLBACK card -->
-  <rect x="486" y="772" width="380" height="84" rx="12" fill="#fff1f2" stroke="#dc2626" stroke-width="2.5" filter="url(#shadow)"/>
-  <text x="676" y="806" text-anchor="middle" font-size="22" font-weight="700" fill="#dc2626">✕  ROLLBACK</text>
-  <text x="676" y="830" text-anchor="middle" font-size="13" fill="#991b1b">Stable version restored</text>
-  <text x="676" y="847" text-anchor="middle" font-size="11" fill="#f87171">failureLimit exceeded</text>
+  <!-- Inconclusive pill (fix: removed duplicate label text) -->
+  <rect x="354" y="900" width="240" height="46" rx="8" fill="#27272a" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="474" y="918" text-anchor="middle" font-size="13" font-weight="700" fill="#94a3b8">Inconclusive</text>
+  <text x="474" y="938" text-anchor="middle" font-size="11" fill="#94a3b8">Analysis paused — no clear result</text>
 
-  <!-- arrows from step 7 down to decisions -->
-  <line x1="450" y1="720" x2="450" y2="748" stroke="#374151" stroke-width="2"/>
-  <line x1="450" y1="748" x2="224" y2="748" stroke="#16a34a" stroke-width="2"/>
-  <line x1="450" y1="748" x2="676" y2="748" stroke="#dc2626" stroke-width="2"/>
-  <line x1="224" y1="748" x2="224" y2="770" stroke="#16a34a" stroke-width="2" marker-end="url(#m-green)"/>
-  <line x1="676" y1="748" x2="676" y2="770" stroke="#dc2626" stroke-width="2" marker-end="url(#m-red)"/>
+  <!-- Error / Inconclusive NOT shown in the happy path -->
+  <rect x="628" y="900" width="202" height="46" rx="8" fill="#27272a" stroke="#6b7280" stroke-width="1"/>
+  <text x="729" y="918" text-anchor="middle" font-size="12" font-weight="700" fill="#9ca3af">Successful</text>
+  <text x="729" y="938" text-anchor="middle" font-size="11" fill="#6b7280">successCondition met — promote</text>
 
-  <!-- ═══════════════════════════════════════════════════
-       FOOTER NOTE
-  ════════════════════════════════════════════════════ -->
-  <rect x="0" y="878" width="900" height="202" fill="#1e1e2e"/>
+  <text x="450" y="982"  text-anchor="middle" font-size="12" fill="#94a3b8">Plugin runs as a child process of the Rollouts controller and inherits its RBAC permissions.</text>
+  <text x="450" y="1002" text-anchor="middle" font-size="12" fill="#94a3b8">All metric calls are synchronous — Run() completes before returning a Measurement.</text>
 
-  <text x="450" y="910" text-anchor="middle" font-size="13" font-weight="700" fill="#e2e8f0">Other outcome phases</text>
-
-  <!-- Error pill -->
-  <rect x="60" y="922" width="230" height="44" rx="8" fill="#27272a" stroke="#f97316" stroke-width="1.5"/>
-  <text x="175" y="940" text-anchor="middle" font-size="12" font-weight="700" fill="#f97316">⚠  Error</text>
-  <text x="175" y="958" text-anchor="middle" font-size="11" fill="#94a3b8">API failure · retried next interval</text>
-
-  <!-- Inconclusive pill -->
-  <rect x="320" y="922" width="250" height="44" rx="8" fill="#27272a" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="445" y="940" text-anchor="middle" font-size="12" font-weight="700" fill="#94a3b8">~  Inconclusive</text>
-  <text x="445" y="958" text-anchor="middle" font-size="11" fill="#94a3b8">Inconclusive · analysis paused</text>
-
-  <!-- note -->
-  <text x="450" y="1000" text-anchor="middle" font-size="12" fill="#94a3b8">Plugin runs as a child process of the Rollouts controller</text>
-  <text x="450" y="1018" text-anchor="middle" font-size="12" fill="#94a3b8">and inherits its Kubernetes RBAC permissions.</text>
-  <text x="450" y="1040" text-anchor="middle" font-size="12" fill="#94a3b8">All metric calls are synchronous — Run() completes before returning.</text>
-
-  <text x="450" y="1070" text-anchor="middle" font-size="11" fill="#4b5563">github.com/irfadkp/rollouts-plugin-metric-instana</text>
+  <text x="450" y="1044" text-anchor="middle" font-size="11" fill="#4b5563">github.com/irfadkp/rollouts-plugin-metric-instana</text>
 
 </svg>
