@@ -6,6 +6,22 @@ Both **application monitoring** metrics (call latency, error rate, throughput) a
 
 ---
 
+## Architecture / Flow
+
+![Runtime flow diagram](docs/flow.svg)
+
+> **How it works:**
+> 1. The controller reads the plugin location from the `argo-rollouts-config` ConfigMap
+> 2. It spawns the plugin binary as a long-lived RPC server over a Unix socket (hashicorp/go-plugin)
+> 3. On every analysis interval the controller calls `Run()` over RPC
+> 4. The plugin parses JSON config from the `metric.Provider.Plugin` key
+> 5. Based on `metricType` it POSTs to the Instana application or infrastructure metrics API
+> 6. The last data point `[timestamp, value]` is extracted from the timeseries response
+> 7. `evaluate.EvaluateResult()` checks the value against `successCondition` / `failureCondition`
+> 8. A `Measurement` is returned: **Successful** promotes the canary, **Failed** triggers a rollback
+
+---
+
 ## Installation
 
 ### 1. Add the plugin to the Argo Rollouts ConfigMap
